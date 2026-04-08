@@ -4,7 +4,7 @@ Projects and exercises completed as part of the [AI Agents Specialization](https
 
 ## Projects
 
-### Function Developer Agent (`agents/function_agent.py`)
+### Function Developer Agent (`agents/function_developer_agent.py`)
 
 A multi-turn conversational agent that generates a Python function from a plain-English description. Given user input, it:
 
@@ -12,6 +12,10 @@ A multi-turn conversational agent that generates a Python function from a plain-
 2. Adds comprehensive documentation
 3. Generates `unittest` test cases
 4. Saves the final output to the `out/` directory
+
+### File Explorer Explorer Agent (`agents/file_explorer_agent.py`)
+
+A ReAct-style agent loop that explores the project's files. Given a question, it autonomously lists and reads files to synthesize an answer, using three tools: `list_files`, `read_file`, and `terminate`.
 
 ## Setup
 

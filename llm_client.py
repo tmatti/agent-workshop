@@ -38,6 +38,25 @@ def generate_response(
     return response.choices[0].message.content
 
 
+def generate_response_with_tools(
+    messages: List[Dict],
+    tools: List[Dict],
+    model: str = "openrouter/openai/gpt-4o",
+    max_tokens: int = 1024,
+):
+    """Call LLM with tool definitions; returns the raw Message object."""
+    api_key = _get_api_key()
+
+    response = completion(
+        model=model,
+        messages=messages,
+        tools=tools,
+        max_tokens=max_tokens,
+        api_key=api_key,
+    )
+    return response.choices[0].message
+
+
 def extract_code_block(response: str) -> str:
     """Extract code block from response"""
 
