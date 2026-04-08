@@ -1,40 +1,8 @@
 import os
-from typing import Dict, List
 
-from litellm import completion
+from llm_client import extract_code_block, generate_response
 
-
-def generate_response(messages: List[Dict]) -> str:
-    """Call LLM to get response"""
-    api_key = (os.environ.get("OPENROUTER_API_KEY") or "").strip()
-
-    if not api_key:
-        raise RuntimeError(
-            "OPENROUTER_API_KEY is not set. Add it to `.env`, then run `uv run agent.py`."
-        )
-
-    response = completion(
-        model="openrouter/openai/gpt-4",
-        messages=messages,
-        max_tokens=1024,
-        api_key=api_key,
-    )
-    return response.choices[0].message.content
-
-
-def extract_code_block(response: str) -> str:
-    """Extract code block from response"""
-
-    if "```" not in response:
-        return response
-
-    code_block = response.split("```")[1].strip()
-    # Check for "python" at the start and remove
-
-    if code_block.startswith("python"):
-        code_block = code_block[6:]
-
-    return code_block
+NAME = "Function Developer"
 
 
 def develop_custom_function():
@@ -114,9 +82,11 @@ def develop_custom_function():
     print(test_cases)
 
     # Generate filename from function description
+    out_dir = os.path.join(os.path.dirname(__file__), "..", "out")
+    os.makedirs(out_dir, exist_ok=True)
     filename = function_description.lower()
     filename = "".join(c for c in filename if c.isalnum() or c.isspace())
-    filename = filename.replace(" ", "_")[:30] + ".py"
+    filename = os.path.join(out_dir, filename.replace(" ", "_")[:30] + ".py")
 
     # Save final version
     with open(filename, "w") as f:
@@ -125,10 +95,6 @@ def develop_custom_function():
     return documented_function, test_cases, filename
 
 
-def main() -> None:
+def run() -> None:
     function_code, tests, filename = develop_custom_function()
     print(f"\nFinal code has been saved to {filename}")
-
-
-if __name__ == "__main__":
-    main()
