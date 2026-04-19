@@ -1,0 +1,6 @@
+1. All purchases over $5,000 require pre-approval from a manager.
+2. IT equipment purchases must be from approved vendors only.
+3. Travel expenses must include a business justification.
+4. Consulting fees over $10,000 require a signed Statement of Work (SOW).
+5. Software licenses must be reviewed by IT Security before purchase.
+6. Single-vendor purchases over $25,000 require three competing quotes.
